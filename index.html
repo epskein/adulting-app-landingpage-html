@@ -31,6 +31,8 @@
       crossorigin
     />
 
+<link rel="preload" href="horizon.ttf" as="font" type="font/ttf" crossorigin>
+
     <style>
       /* Add thicker border around the entire page */
       html,
@@ -42,7 +44,7 @@
       /* Custom CSS from globals.css */
       @font-face {
         font-family: "";
-        src: url("./fonts/horizon.ttf") format("truetype");
+        src: url("/fonts/horizon.ttf") format("truetype");
         font-weight: 400;
         font-style: normal;
         font-display: swap; /* Ensures text remains visible during font loading */
@@ -475,6 +477,26 @@
         },
       };
     </script>
+<script>
+  // Font loading detection
+  document.addEventListener('DOMContentLoaded', function() {
+    // Create a font loader
+    const fontLoader = new FontFace('Horizon', 'url(horizon.ttf)');
+    
+    // Load the font
+    fontLoader.load().then(function(loadedFont) {
+      // Add the font to the document
+      document.fonts.add(loadedFont);
+      // Add a class to indicate the font is loaded
+      document.documentElement.classList.add('fonts-loaded');
+      console.log('Horizon font loaded successfully');
+    }).catch(function(error) {
+      console.error('Error loading Horizon font:', error);
+      // Apply fallback fonts
+      document.documentElement.classList.add('fonts-failed');
+    });
+  });
+</script>
   </head>
   <body class="font-[Inter]">
     <div class="min-h-screen bg-black overflow-hidden relative">
